@@ -66,24 +66,25 @@
             // 
             this.lv_ipResult.Location = new System.Drawing.Point(211, 38);
             this.lv_ipResult.Name = "lv_ipResult";
-            this.lv_ipResult.Size = new System.Drawing.Size(318, 231);
+            this.lv_ipResult.Size = new System.Drawing.Size(210, 231);
             this.lv_ipResult.TabIndex = 3;
             this.lv_ipResult.UseCompatibleStateImageBehavior = false;
             // 
             // btn_FileOpen
             // 
-            this.btn_FileOpen.Location = new System.Drawing.Point(536, 22);
+            this.btn_FileOpen.Location = new System.Drawing.Point(427, 22);
             this.btn_FileOpen.Name = "btn_FileOpen";
             this.btn_FileOpen.Size = new System.Drawing.Size(75, 23);
             this.btn_FileOpen.TabIndex = 4;
             this.btn_FileOpen.Text = "파일 열기";
             this.btn_FileOpen.UseVisualStyleBackColor = true;
+            this.btn_FileOpen.Click += new System.EventHandler(this.btn_FileOpen_Clicked);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 278);
+            this.ClientSize = new System.Drawing.Size(503, 278);
             this.Controls.Add(this.btn_FileOpen);
             this.Controls.Add(this.lv_ipResult);
             this.Controls.Add(this.lb_result);
