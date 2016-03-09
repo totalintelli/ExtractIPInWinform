@@ -1,0 +1,9 @@
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\bin\Debug\ExtractIpInWinform.exe.config
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\bin\Debug\ExtractIpInWinform.exe
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\bin\Debug\ExtractIpInWinform.pdb
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.csprojResolveAssemblyReference.cache
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.Form1.resources
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.Properties.Resources.resources
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.csproj.GenerateResource.Cache
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.exe
+E:\Projects\ExtractIpInWinform\ExtractIpInWinform\obj\Debug\ExtractIpInWinform.pdb
