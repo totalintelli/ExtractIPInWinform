@@ -16,15 +16,14 @@ namespace ExtractIpInWinform
         InternetProtocal ip = new InternetProtocal();
         string[] lines;
         List<string> ipValues;
+        List<string> ipDatas;
 
         public Form1()
         {
             InitializeComponent();
 
-
-
             lines = ip.Load();
-            ip.ExtractIp(lines, out ipValues);
+            ip.ExtractIp(lines, out ipDatas);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,6 +32,19 @@ namespace ExtractIpInWinform
             {
                 listBox1.Items.Add(ipValues[i]);
             }
+
+            for(int i = 0; i < ipDatas.Count; i++)
+            {
+                if(i % 2 == 0)
+                {
+                    lb_IpList.Add(ipDatas[i]);
+                }
+            }
+        }
+
+        private void lb_ip_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
