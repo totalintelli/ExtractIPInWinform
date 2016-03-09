@@ -41,7 +41,7 @@
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(12, 37);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(173, 580);
+            this.listBox1.Size = new System.Drawing.Size(173, 232);
             this.listBox1.TabIndex = 0;
             // 
             // lb_IpList
@@ -52,7 +52,6 @@
             this.lb_IpList.Size = new System.Drawing.Size(44, 12);
             this.lb_IpList.TabIndex = 1;
             this.lb_IpList.Text = "IP 목록";
-            this.lb_IpList.Click += new System.EventHandler(this.lb_ip_Click);
             // 
             // lb_result
             // 
@@ -67,7 +66,7 @@
             // 
             this.lv_ipResult.Location = new System.Drawing.Point(211, 38);
             this.lv_ipResult.Name = "lv_ipResult";
-            this.lv_ipResult.Size = new System.Drawing.Size(318, 234);
+            this.lv_ipResult.Size = new System.Drawing.Size(318, 231);
             this.lv_ipResult.TabIndex = 3;
             this.lv_ipResult.UseCompatibleStateImageBehavior = false;
             // 
@@ -84,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 627);
+            this.ClientSize = new System.Drawing.Size(615, 278);
             this.Controls.Add(this.btn_FileOpen);
             this.Controls.Add(this.lv_ipResult);
             this.Controls.Add(this.lb_result);

@@ -28,23 +28,18 @@ namespace ExtractIpInWinform
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for(int i = 0; i < ipValues.Count; i++)
-            {
-                listBox1.Items.Add(ipValues[i]);
-            }
-
+            // IP 목록을 표시한다.
             for(int i = 0; i < ipDatas.Count; i++)
             {
                 if(i % 2 == 0)
-                {
-                    lb_IpList.Add(ipDatas[i]);
-                }
+                listBox1.Items.Add(ipDatas[i]);
             }
-        }
 
-        private void lb_ip_Click(object sender, EventArgs e)
-        {
+            // 결과를 List View에 표시
+            
 
+            
         }
+        
     }
 }
