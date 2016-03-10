@@ -93,9 +93,12 @@ namespace ExtractIP
         입    력 : 없음
         출    력 : 한 줄 로그들
         */
-        public string[] Load()
+        public string[] Load(string openFilePath)
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\u_ex150907.log");
+            string[] lines = null;
+
+            lines = System.IO.File.ReadAllLines(openFilePath);
+
             return lines;
         }
     }
