@@ -22,12 +22,14 @@ namespace ExtractIP
         입    력 : 한 줄 로그들
         출    력 : IP 데이터들 
         */
-        public void ExtractIp(string[] lines, out List<string> ipDatas)
+        public List<string> ExtractIp(string[] lines)
         {
+            List<string> ipDatas = new List<string>();
+
             string pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> tmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
             List<string> ipValues = new List<string>(); // IP 값들
-            int dataCount = 0; // 글자형에 맞는 IP의 개수
+
             int sameCount = 0; // 같은 IP의 개수
             List<string> singleIps = new List<string>(); // IP 목록
             ipDatas = new List<string>(); // IP에 대한 데이터들 - 짝수행 : IP 값, 홀수행 : 중복된 IP의 개수
@@ -41,13 +43,10 @@ namespace ExtractIP
                 while (m.Success)
                 {
                     tmpIpValues.Add(m.Value);
-
-                    dataCount++;
-
                     m = m.NextMatch();
-
                 }
             }
+
 
             while (k < tmpIpValues.Count)
             {
@@ -83,6 +82,9 @@ namespace ExtractIP
                 // 중복 개수를 초기화한다.
                 sameCount = 0;
             }
+
+
+            return ipDatas;
         }
 
 
