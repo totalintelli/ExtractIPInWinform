@@ -25,8 +25,6 @@ namespace ExtractIpInWinform
 
             lv_ipResult.Columns.Add("IP");
             lv_ipResult.Columns.Add("IP의 개수");
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
