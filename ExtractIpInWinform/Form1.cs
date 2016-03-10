@@ -23,9 +23,10 @@ namespace ExtractIpInWinform
         {
             InitializeComponent();
 
-            ListViewItem lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
             lv_ipResult.Columns.Add("IP");
             lv_ipResult.Columns.Add("IP의 개수");
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
