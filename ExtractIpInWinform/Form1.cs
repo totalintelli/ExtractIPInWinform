@@ -95,8 +95,6 @@ namespace ExtractIpInWinform
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
             List<InternetProtocol> IpValues = new List<InternetProtocol>(); // IP 값들
-            int SameCount = 0; // 같은 IP의 개수
-            List<string> SingleIps = new List<string>(); // IP 목록
             int k = 0; // IP 형식에 맞는 IP들에서의 위치
 
             foreach (string line in Lines)
@@ -112,10 +110,7 @@ namespace ExtractIpInWinform
 
             while (k < TmpIpValues.Count)
             {
-                if (k % 2 == 0)
-                {
-                    IpValues.Add(new InternetProtocol() { Ip = TmpIpValues[k] });
-                }
+                IpValues.Add(new InternetProtocol() { Ip = TmpIpValues[k] });
 
                 k++;
             }
