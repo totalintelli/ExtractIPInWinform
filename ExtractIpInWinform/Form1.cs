@@ -53,7 +53,7 @@ namespace ExtractIpInWinform
         {
             ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
             string[] Lines; // 로그 한 줄씩 담은 배열
-            List<InternetProtocol> IpDatas; // IP와 IP 개수를 담은 리스트
+            List<IpList> IpDatas; // IP와 IP 개수를 담은 리스트
 
             Lines = System.IO.File.ReadAllLines(FileName);
             IpDatas = ExtractIp(Lines);
@@ -89,12 +89,12 @@ namespace ExtractIpInWinform
         입    력 : 한 줄 로그들
         출    력 : IP 데이터들 
         */
-        public List<InternetProtocol> ExtractIp(string[] Lines)
+        public List<IpList> ExtractIp(string[] Lines)
         {
-            List<InternetProtocol> IpDatas = new List<InternetProtocol>(); // IP 데이터 - IP 값, IP의 개수
+            List<IpList> IpDatas = new List<IpList>(); // IP 데이터 - IP 값, IP의 개수
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
-            List<InternetProtocol> IpValues = new List<InternetProtocol>(); // IP 값들
+            List<IpList> IpValues = new List<IpList>(); // IP 값들
             int k = 0; // IP 형식에 맞는 IP들에서의 위치
 
             foreach (string line in Lines)
@@ -110,14 +110,14 @@ namespace ExtractIpInWinform
 
             while (k < TmpIpValues.Count)
             {
-                IpValues.Add(new InternetProtocol() { Ip = TmpIpValues[k] });
+                IpValues.Add(new IpList() { Ip = TmpIpValues[k] });
 
                 k++;
             }
 
             // IP 데이터를 구한다.
-            IpDatas = IpValues.GroupBy(internetProtocol => internetProtocol.Ip)
-                              .Select(g => new InternetProtocol { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
+            IpDatas = IpValues.GroupBy(IpList => IpList.Ip)
+                              .Select(g => new IpList { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
 
             return IpDatas;
         }
@@ -126,7 +126,7 @@ namespace ExtractIpInWinform
 
 
 
-    public class InternetProtocol
+    public class IpList
     {
         public string Ip { get; set; }
         public string Count { get; set; }
