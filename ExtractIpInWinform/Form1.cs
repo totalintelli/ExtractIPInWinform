@@ -91,7 +91,7 @@ namespace ExtractIpInWinform
         */
         public List<IpList> ExtractIp(string[] Lines)
         {
-            List<IpList> IpDatas = new List<IpList>(); // IP 데이터 - IP 값, IP의 개수
+            List<IpList> IpDatas = new List<IpList>(); // IP 목록 - IP 값, IP의 개수
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
             List<IpList> IpValues = new List<IpList>(); // IP 값들
@@ -115,7 +115,7 @@ namespace ExtractIpInWinform
                 k++;
             }
 
-            // IP 데이터를 구한다.
+            // IP 목록을 구한다.
             IpDatas = IpValues.GroupBy(IpList => IpList.Ip)
                               .Select(g => new IpList { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
 
