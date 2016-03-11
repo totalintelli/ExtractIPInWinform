@@ -41,7 +41,14 @@ namespace ExtractIpInWinform
 
         }
 
-      
+
+
+        /*
+        함수 이름 : IpResult
+        기    능 : 로그 파일에서 IP 값과 IP 개수를 추출하여 폼에 출력한다.
+        입    력 : 로그 파일 이름
+        출    력 : 없음
+        */
         private void IpResult(string FileName)
         {
             ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
@@ -90,7 +97,6 @@ namespace ExtractIpInWinform
             List<string> SingleIps = new List<string>(); // IP 목록
             int k = 0; // IP 형식에 맞는 IP들에서의 위치
 
-
             foreach (string line in Lines)
             {
                 Match m = Regex.Match(line, Pattern);
@@ -102,7 +108,6 @@ namespace ExtractIpInWinform
                 }
             }
 
-
             while (k < TmpIpValues.Count)
             {
                 if (k % 2 == 0)
@@ -112,7 +117,6 @@ namespace ExtractIpInWinform
 
                 k++;
             }
-
 
             // IP 목록을 구한다.
             SingleIps = IpValues.Distinct().ToList();
