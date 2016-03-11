@@ -124,29 +124,6 @@ namespace ExtractIpInWinform
             IpDatas = IpValues.GroupBy(internetProtocol => internetProtocol.Ip)
                               .Select(g => new InternetProtocol { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
 
-            //// IP 목록을 구한다.
-            //SingleIps = IpValues.Distinct().ToList();
-
-            //// 배열의 개수만큼 반복한다.
-            //for (int i = 0; i < SingleIps.Count; i++)
-            //{
-
-            //    // 배열의 첫 번째 값과 같은 IP의 개수를 센다.
-            //    for (int j = 0; j < IpValues.Count; j++)
-            //    {
-            //        if (IpValues[j].Equals(SingleIps[i]))
-            //        {
-            //            SameCount++;
-            //        }
-            //    }
-            //    // 자기 자신의 개수로 하나를 더한다.
-            //    SameCount++;
-            //    // IP에 대한 데이터들을 구한다.
-            //    IpDatas.Add(new InternetProtocol() {Ip= SingleIps[i], Count = SameCount.ToString() + "개" });
-            //    // 중복 개수를 초기화한다.
-            //    SameCount = 0;
-            //}
-
             return IpDatas;
         }
 
