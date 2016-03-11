@@ -1,5 +1,4 @@
-﻿using ExtractIP;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,7 +19,6 @@ namespace ExtractIpInWinform
         {
 
             InitializeComponent();
-
 
             lv_ipResult.View = View.Details;
             lv_ipResult.Columns.Add("IP");
@@ -37,18 +36,23 @@ namespace ExtractIpInWinform
 
             if(OpenFileDlg.ShowDialog() == DialogResult.OK)
             {
-                InternetProtocal Ip = new InternetProtocal();
-                IpResult(Ip.ExtractIp(Ip.Load(OpenFileDlg.FileName)));
+                IpResult(OpenFileDlg.FileName);
             }
 
         }
 
       
-        private void IpResult(SortedList IpDatas)
+        private void IpResult(string FileName)
         {
             ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
-            IList IpList = IpDatas.GetKeyList();
-            IList CountList = IpDatas.GetValueList();
+            string[] Lines; // 로그 한 줄씩 담은 배열
+            SortedList IpDatas; // IP와 IP 개수를 담은 리스트
+
+            Lines = System.IO.File.ReadAllLines(FileName);
+            IpDatas = ExtractIp(Lines);
+
+            IList IpList = IpDatas.GetKeyList(); // IP 리스트
+            IList CountList = IpDatas.GetValueList(); // IP 개수 리스트
 
             // IP 목록을 초기화한다.
             if (listBox1.Items.Count != 0)
@@ -74,7 +78,71 @@ namespace ExtractIpInWinform
             }
         }
 
+        /*
+        함수 이름 : ExtractIp
+        기    능 : IP를 추출하고 추출한 Ip들의 개수를 센다.
+        입    력 : 한 줄 로그들
+        출    력 : IP 데이터들 
+        */
+        public SortedList ExtractIp(string[] Lines)
+        {
+            SortedList IpDatas = new SortedList(); // IP에 대한 데이터들 - IP 값, IP의 개수
+            string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
+            List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
+            List<string> IpValues = new List<string>(); // IP 값들
+            int SameCount = 0; // 같은 IP의 개수
+            List<string> SingleIps = new List<string>(); // IP 목록
+            int k = 0; // IP 형식에 맞는 IP들에서의 위치
 
 
+            foreach (string line in Lines)
+            {
+                Match m = Regex.Match(line, Pattern);
+
+                while (m.Success)
+                {
+                    TmpIpValues.Add(m.Value);
+                    m = m.NextMatch();
+                }
+            }
+
+
+            while (k < TmpIpValues.Count)
+            {
+                if (k % 2 == 0)
+                {
+                    IpValues.Add(TmpIpValues[k]);
+                }
+
+                k++;
+            }
+
+
+            // IP 목록을 구한다.
+            SingleIps = IpValues.Distinct().ToList();
+
+            // 배열의 개수만큼 반복한다.
+            for (int i = 0; i < SingleIps.Count; i++)
+            {
+
+                // 배열의 첫 번째 값과 같은 IP의 개수를 센다.
+                for (int j = 0; j < IpValues.Count; j++)
+                {
+                    if (IpValues[j].Equals(SingleIps[i]))
+                    {
+                        SameCount++;
+                    }
+                }
+                // 자기 자신의 개수로 하나를 더한다.
+                SameCount++;
+                // IP에 대한 데이터들을 구한다.
+                IpDatas.Add(SingleIps[i], SameCount.ToString() + "개");
+                // 중복 개수를 초기화한다.
+                SameCount = 0;
+            }
+
+
+            return IpDatas;
+        }
     }
 }
