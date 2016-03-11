@@ -91,10 +91,10 @@ namespace ExtractIpInWinform
         */
         public List<InternetProtocol> ExtractIp(string[] Lines)
         {
-            List<InternetProtocol> IpDatas = new List<InternetProtocol>(); // IP에 대한 데이터들 - IP 값, IP의 개수
+            List<InternetProtocol> IpDatas = new List<InternetProtocol>(); // IP 데이터 - IP 값, IP의 개수
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
-            List<string> IpValues = new List<string>(); // IP 값들
+            List<InternetProtocol> IpValues = new List<InternetProtocol>(); // IP 값들
             int SameCount = 0; // 같은 IP의 개수
             List<string> SingleIps = new List<string>(); // IP 목록
             int k = 0; // IP 형식에 맞는 IP들에서의 위치
@@ -114,34 +114,38 @@ namespace ExtractIpInWinform
             {
                 if (k % 2 == 0)
                 {
-                    IpValues.Add(TmpIpValues[k]);
+                    IpValues.Add(new InternetProtocol() { Ip = TmpIpValues[k] });
                 }
 
                 k++;
             }
 
-            // IP 목록을 구한다.
-            SingleIps = IpValues.Distinct().ToList();
+            // IP 데이터를 구한다.
+            IpDatas = IpValues.GroupBy(internetProtocol => internetProtocol.Ip)
+                              .Select(g => new InternetProtocol { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
 
-            // 배열의 개수만큼 반복한다.
-            for (int i = 0; i < SingleIps.Count; i++)
-            {
+            //// IP 목록을 구한다.
+            //SingleIps = IpValues.Distinct().ToList();
 
-                // 배열의 첫 번째 값과 같은 IP의 개수를 센다.
-                for (int j = 0; j < IpValues.Count; j++)
-                {
-                    if (IpValues[j].Equals(SingleIps[i]))
-                    {
-                        SameCount++;
-                    }
-                }
-                // 자기 자신의 개수로 하나를 더한다.
-                SameCount++;
-                // IP에 대한 데이터들을 구한다.
-                IpDatas.Add(new InternetProtocol() {Ip= SingleIps[i], Count = SameCount.ToString() + "개" });
-                // 중복 개수를 초기화한다.
-                SameCount = 0;
-            }
+            //// 배열의 개수만큼 반복한다.
+            //for (int i = 0; i < SingleIps.Count; i++)
+            //{
+
+            //    // 배열의 첫 번째 값과 같은 IP의 개수를 센다.
+            //    for (int j = 0; j < IpValues.Count; j++)
+            //    {
+            //        if (IpValues[j].Equals(SingleIps[i]))
+            //        {
+            //            SameCount++;
+            //        }
+            //    }
+            //    // 자기 자신의 개수로 하나를 더한다.
+            //    SameCount++;
+            //    // IP에 대한 데이터들을 구한다.
+            //    IpDatas.Add(new InternetProtocol() {Ip= SingleIps[i], Count = SameCount.ToString() + "개" });
+            //    // 중복 개수를 초기화한다.
+            //    SameCount = 0;
+            //}
 
             return IpDatas;
         }
