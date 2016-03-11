@@ -55,7 +55,6 @@ namespace ExtractIpInWinform
             if (listBox1.Items.Count != 0)
                 listBox1.Items.Clear();
 
-
             // IP 목록을 표시한다.
             for (int i = 0; i < IpDatas.Count; i++)
             {
