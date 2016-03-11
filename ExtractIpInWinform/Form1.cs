@@ -46,13 +46,10 @@ namespace ExtractIpInWinform
         {
             ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
             string[] Lines; // 로그 한 줄씩 담은 배열
-            SortedList IpDatas; // IP와 IP 개수를 담은 리스트
+            List<InternetProtocol> IpDatas; // IP와 IP 개수를 담은 리스트
 
             Lines = System.IO.File.ReadAllLines(FileName);
             IpDatas = ExtractIp(Lines);
-
-            IList IpList = IpDatas.GetKeyList(); // IP 리스트
-            IList CountList = IpDatas.GetValueList(); // IP 개수 리스트
 
             // IP 목록을 초기화한다.
             if (listBox1.Items.Count != 0)
@@ -62,7 +59,7 @@ namespace ExtractIpInWinform
             // IP 목록을 표시한다.
             for (int i = 0; i < IpDatas.Count; i++)
             {
-              listBox1.Items.Add(IpList[i]);
+              listBox1.Items.Add(IpDatas[i].Ip);
             }
 
             // 결과를 초기화한다.
@@ -72,8 +69,8 @@ namespace ExtractIpInWinform
             // 결과를 List View에 표시
             for (int i = 0; i < IpDatas.Count; i++)
             {
-                Lvi = new ListViewItem(IpList[i].ToString());
-                Lvi.SubItems.Add(CountList[i].ToString());
+                Lvi = new ListViewItem(IpDatas[i].Ip);
+                Lvi.SubItems.Add(IpDatas[i].Count);
                 lv_ipResult.Items.Add(Lvi);
             }
         }
@@ -84,9 +81,9 @@ namespace ExtractIpInWinform
         입    력 : 한 줄 로그들
         출    력 : IP 데이터들 
         */
-        public SortedList ExtractIp(string[] Lines)
+        public List<InternetProtocol> ExtractIp(string[] Lines)
         {
-            SortedList IpDatas = new SortedList(); // IP에 대한 데이터들 - IP 값, IP의 개수
+            List<InternetProtocol> IpDatas = new List<InternetProtocol>(); // IP에 대한 데이터들 - IP 값, IP의 개수
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
             List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
             List<string> IpValues = new List<string>(); // IP 값들
@@ -136,7 +133,7 @@ namespace ExtractIpInWinform
                 // 자기 자신의 개수로 하나를 더한다.
                 SameCount++;
                 // IP에 대한 데이터들을 구한다.
-                IpDatas.Add(SingleIps[i], SameCount.ToString() + "개");
+                IpDatas.Add(new InternetProtocol() {Ip= SingleIps[i], Count = SameCount.ToString() + "개" });
                 // 중복 개수를 초기화한다.
                 SameCount = 0;
             }
@@ -144,5 +141,12 @@ namespace ExtractIpInWinform
 
             return IpDatas;
         }
+
     }
+    public class InternetProtocol
+    {
+        public string Ip { get; set; }
+        public string Count { get; set; }
+    }
+
 }
