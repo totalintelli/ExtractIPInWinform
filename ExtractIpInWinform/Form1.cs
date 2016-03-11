@@ -50,7 +50,7 @@ namespace ExtractIpInWinform
             IList IpList = IpDatas.GetKeyList();
             IList CountList = IpDatas.GetValueList();
 
-            // 목록을 초기화한다.
+            // IP 목록을 초기화한다.
             if (listBox1.Items.Count != 0)
                 listBox1.Items.Clear();
 
@@ -61,6 +61,7 @@ namespace ExtractIpInWinform
               listBox1.Items.Add(IpList[i]);
             }
 
+            // 결과를 초기화한다.
             if (lv_ipResult.Items.Count != 0)
                 lv_ipResult.Items.Clear();
 
