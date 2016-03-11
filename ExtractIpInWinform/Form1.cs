@@ -143,7 +143,6 @@ namespace ExtractIpInWinform
                 SameCount = 0;
             }
 
-
             return IpDatas;
         }
 
