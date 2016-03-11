@@ -81,6 +81,8 @@ namespace ExtractIpInWinform
             }
         }
 
+
+
         /*
         함수 이름 : ExtractIp
         기    능 : IP를 추출하고 추출한 Ip들의 개수를 센다.
@@ -146,6 +148,9 @@ namespace ExtractIpInWinform
         }
 
     }
+
+
+
     public class InternetProtocol
     {
         public string Ip { get; set; }
