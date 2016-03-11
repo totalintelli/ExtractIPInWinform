@@ -117,7 +117,7 @@ namespace ExtractIpInWinform
 
             // IP 목록을 구한다.
             IpDatas = IpValues.GroupBy(IpList => IpList.Ip)
-                              .Select(g => new IpList { Ip = g.Key.ToString(), Count = g.Count().ToString()}).ToList();
+                              .Select(g => new IpList { Ip = g.Key, Count = g.Count().ToString() }).ToList();
 
             return IpDatas;
         }
