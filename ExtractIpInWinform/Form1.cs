@@ -1,5 +1,6 @@
 ﻿using ExtractIP;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,34 +28,37 @@ namespace ExtractIpInWinform
 
         private void btn_FileOpen_Clicked(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDlg = new OpenFileDialog();
+            OpenFileDialog OpenFileDlg = new OpenFileDialog();
 
-            openFileDlg.Title = "파일 열기";
-            openFileDlg.InitialDirectory = "C:\\";
-            openFileDlg.DefaultExt = "*.*";
-            openFileDlg.Filter = "All Files (*.*) | *.*";
+            OpenFileDlg.Title = "파일 열기";
+            OpenFileDlg.InitialDirectory = "C:\\";
+            OpenFileDlg.DefaultExt = "*.*";
+            OpenFileDlg.Filter = "All Files (*.*) | *.*";
 
-            if(openFileDlg.ShowDialog() == DialogResult.OK)
+            if(OpenFileDlg.ShowDialog() == DialogResult.OK)
             {
                 InternetProtocal Ip = new InternetProtocal();
-                IpResult(Ip.ExtractIp(Ip.Load(openFileDlg.FileName)));
+                IpResult(Ip.ExtractIp(Ip.Load(OpenFileDlg.FileName)));
             }
 
         }
 
       
-        private void IpResult(List<string> IpDatas)
+        private void IpResult(SortedList IpDatas)
         {
-            ListViewItem lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
+            ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
+            IList IpList = IpDatas.GetKeyList();
+            IList CountList = IpDatas.GetValueList();
 
+            // 목록을 초기화한다.
             if (listBox1.Items.Count != 0)
                 listBox1.Items.Clear();
+
 
             // IP 목록을 표시한다.
             for (int i = 0; i < IpDatas.Count; i++)
             {
-                if (i % 2 == 0)
-                    listBox1.Items.Add(IpDatas[i]);
+              listBox1.Items.Add(IpList[i]);
             }
 
             if (lv_ipResult.Items.Count != 0)
@@ -63,12 +67,9 @@ namespace ExtractIpInWinform
             // 결과를 List View에 표시
             for (int i = 0; i < IpDatas.Count; i++)
             {
-                if (i % 2 == 1)
-                {
-                    lvi = new ListViewItem(IpDatas[i - 1]);
-                    lvi.SubItems.Add(IpDatas[i]);
-                    lv_ipResult.Items.Add(lvi);
-                }
+                Lvi = new ListViewItem(IpList[i].ToString());
+                Lvi.SubItems.Add(CountList[i].ToString());
+                lv_ipResult.Items.Add(Lvi);
             }
         }
 

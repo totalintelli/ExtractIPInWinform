@@ -6,6 +6,7 @@
 //버전 1
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,37 +23,34 @@ namespace ExtractIP
         입    력 : 한 줄 로그들
         출    력 : IP 데이터들 
         */
-        public List<string> ExtractIp(string[] lines)
+        public SortedList ExtractIp(string[] Lines)
         {
-            List<string> ipDatas = new List<string>();
-
-            string pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
-            List<string> tmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
-            List<string> ipValues = new List<string>(); // IP 값들
-
-            int sameCount = 0; // 같은 IP의 개수
-            List<string> singleIps = new List<string>(); // IP 목록
-            ipDatas = new List<string>(); // IP에 대한 데이터들 - 짝수행 : IP 값, 홀수행 : 중복된 IP의 개수
+            SortedList IpDatas = new SortedList(); // IP에 대한 데이터들 - IP 값, IP의 개수
+            string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
+            List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
+            List<string> IpValues = new List<string>(); // IP 값들
+            int SameCount = 0; // 같은 IP의 개수
+            List<string> SingleIps = new List<string>(); // IP 목록
             int k = 0; // IP 형식에 맞는 IP들에서의 위치
             
 
-            foreach (string line in lines)
+            foreach (string line in Lines)
             {
-                Match m = Regex.Match(line, pattern);
+                Match m = Regex.Match(line, Pattern);
 
                 while (m.Success)
                 {
-                    tmpIpValues.Add(m.Value);
+                    TmpIpValues.Add(m.Value);
                     m = m.NextMatch();
                 }
             }
 
 
-            while (k < tmpIpValues.Count)
+            while (k < TmpIpValues.Count)
             {
                 if (k % 2 == 0)
                 {
-                    ipValues.Add(tmpIpValues[k]);
+                    IpValues.Add(TmpIpValues[k]);
                 }
 
                 k++;
@@ -60,31 +58,30 @@ namespace ExtractIP
 
 
             // IP 목록을 구한다.
-            singleIps = ipValues.Distinct().ToList();
+            SingleIps = IpValues.Distinct().ToList();
 
             // 배열의 개수만큼 반복한다.
-            for (int i = 0; i < singleIps.Count; i++)
+            for (int i = 0; i < SingleIps.Count; i++)
             {
-                // IP에 대한 데이터들을 구한다.
-                ipDatas.Add(singleIps[i]);
+                
                 // 배열의 첫 번째 값과 같은 IP의 개수를 센다.
-                for (int j = 0; j < ipValues.Count; j++)
+                for (int j = 0; j < IpValues.Count; j++)
                 {
-                    if (ipValues[j].Equals(singleIps[i]))
+                    if (IpValues[j].Equals(SingleIps[i]))
                     {
-                        sameCount++;
+                        SameCount++;
                     }
                 }
                 // 자기 자신의 개수로 하나를 더한다.
-                sameCount++;
-                // 중복 개수를 추가한다.
-                ipDatas.Add(sameCount.ToString() + "개");
+                SameCount++;
+                // IP에 대한 데이터들을 구한다.
+                IpDatas.Add(SingleIps[i], SameCount.ToString() + "개");
                 // 중복 개수를 초기화한다.
-                sameCount = 0;
+                SameCount = 0;
             }
 
 
-            return ipDatas;
+            return IpDatas;
         }
 
 
@@ -97,11 +94,11 @@ namespace ExtractIP
         */
         public string[] Load(string openFilePath)
         {
-            string[] lines = null;
+            string[] Lines = null;
 
-            lines = System.IO.File.ReadAllLines(openFilePath);
+            Lines = System.IO.File.ReadAllLines(openFilePath);
 
-            return lines;
+            return Lines;
         }
     }
 }
