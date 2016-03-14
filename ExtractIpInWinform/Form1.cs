@@ -93,9 +93,7 @@ namespace ExtractIpInWinform
         {
             List<IpList> IpDatas = new List<IpList>(); // IP 목록 - IP 값, IP의 개수
             string Pattern = @"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}";
-            List<string> TmpIpValues = new List<string>(); // IP 형식에 맞는 IP들
             List<IpList> IpValues = new List<IpList>(); // IP 값들
-            int k = 0; // IP 형식에 맞는 IP들에서의 위치
 
             foreach (string line in Lines)
             {
