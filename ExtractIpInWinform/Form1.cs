@@ -43,12 +43,12 @@ namespace ExtractIpInWinform
 
 
 
-        /*
-        함수 이름 : IpResult
-        기    능 : 로그 파일에서 IP 값과 IP 개수를 추출하여 폼에 출력한다.
-        입    력 : 로그 파일 이름
-        출    력 : 없음
-        */
+        /// <summary>
+        /// 함수 이름 : IpResult
+        /// 기 능 : 로그 파일에서 IP 값과 IP 개수를 추출하여 폼에 출력한다.
+        /// 입 력 : 로그 파일 이름
+        /// 출 력 : 없음
+        /// </summary>
         private void IpResult(string FileName)
         {
             ListViewItem Lvi; // 둘째 열부터 들어갈 데이터들을 담는 객체
@@ -83,12 +83,12 @@ namespace ExtractIpInWinform
 
 
 
-        /*
-        함수 이름 : ExtractIp
-        기    능 : IP를 추출하고 추출한 Ip들의 개수를 센다.
-        입    력 : 한 줄 로그들
-        출    력 : IP 데이터들 
-        */
+        /// <summary>
+        ///함수 이름 : ExtractIp
+        ///기    능 : IP를 추출하고 추출한 Ip들의 개수를 센다.
+        ///입    력 : 한 줄 로그들
+        ///출    력 : IP 데이터들 
+        /// </summary>
         public List<IpList> ExtractIp(string[] Lines)
         {
             List<IpList> IpDatas = new List<IpList>(); // IP 목록 - IP 값, IP의 개수
@@ -106,6 +106,7 @@ namespace ExtractIpInWinform
                 }
             }
 
+
             // IP 목록을 구한다.
             IpDatas = IpValues.GroupBy(IpList => IpList.Ip)
                               .Select(g => new IpList { Ip = g.Key, Count = g.Count().ToString() }).ToList();
@@ -122,5 +123,4 @@ namespace ExtractIpInWinform
         public string Ip { get; set; }
         public string Count { get; set; }
     }
-
 }
