@@ -103,16 +103,9 @@ namespace ExtractIpInWinform
 
                 while (m.Success)
                 {
-                    TmpIpValues.Add(m.Value);
+                    IpValues.Add(new IpList() { Ip = m.Value });
                     m = m.NextMatch();
                 }
-            }
-
-            while (k < TmpIpValues.Count)
-            {
-                IpValues.Add(new IpList() { Ip = TmpIpValues[k] });
-
-                k++;
             }
 
             // IP 목록을 구한다.
